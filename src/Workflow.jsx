@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef, useEffect } from 'react';
 import ReactFlow, {
   MiniMap,
   Controls,
@@ -17,13 +17,49 @@ const initialNodes = [
 const initialEdges = [{ id: 'e1-2', source: '1', target: '2' }];
 
 export default function Workflow() {
+  const reactFlowWrapper = useRef(null);
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
   const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), [setEdges]);
 
+  const onDrop = useCallback((event) => {
+    event.preventDefault();
+
+    const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
+    const nodeType = event.dataTransfer.getData('application/reactflow');
+    const position = {
+      x: event.clientX - reactFlowBounds.left,
+      y: event.clientY - reactFlowBounds.top,
+    };
+
+    const newNode = {
+      id: nodeType + '_' + Date.now(),
+      type: nodeType,
+      position,
+      data: { label: `${nodeType} node` },
+    };
+
+    setNodes((nodes) => nodes.concat(newNode));
+  }, [setNodes]);
+
+  const onDragOver = useCallback((event) => {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = 'move';
+  }, []);
+
+  useEffect(() => {
+    console.log('Current nodes:', nodes);
+    console.log('Current edges:', edges);
+  }, [nodes, edges]);
+
   return (
-    <>
+    <div
+      ref={reactFlowWrapper}
+      style={{ height: '100%', width: '100%' }}
+      onDrop={onDrop}
+      onDragOver={onDragOver}
+    >
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -35,6 +71,6 @@ export default function Workflow() {
         <MiniMap />
         <Background variant="dots" gap={12} size={1} />
       </ReactFlow>
-    </>
+    </div>
   );
 }

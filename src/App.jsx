@@ -1,16 +1,23 @@
-import { useState } from 'react'
 import {
   ChakraProvider
 } from '@chakra-ui/react'
-import FlowEditor from './FlowEditor'
+import Layout from './Layout'
 import Workflow from './Workflow'
+import Navigation from './Navigation'
+import NodeRepository from './NodeRepository'
+import RightMenu from './RightMenu'
+import Console from './Console'
 
 function App() {
   return (
     <ChakraProvider>
-      <FlowEditor>
-        <Workflow />
-      </FlowEditor>
+      <Layout
+        navigation={<Navigation />}
+        node_repository={<NodeRepository />}
+        workflow={<Workflow />}
+        right_menu={<RightMenu />}
+        console={<Console />}
+      />
     </ChakraProvider>
   )
 }
