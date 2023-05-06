@@ -54,7 +54,6 @@ const FlowEditor = (props) => {
         {/* Workflow Window */}
         <Box flex="1" bg={flowBgColor} overflow="auto">
           {/* Workflow Window Content */}
-          <h1>Workflow Editor</h1>
           {props.children}
         </Box>
 
