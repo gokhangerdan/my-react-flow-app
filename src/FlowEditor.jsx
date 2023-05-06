@@ -4,6 +4,9 @@ import {
   Flex,
   IconButton,
   useColorModeValue,
+  Image,
+  Text,
+  Button
 } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon, ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 
@@ -20,8 +23,18 @@ const FlowEditor = (props) => {
 
   return (
     <Box h="100vh" display="flex" flexDir="column">
-      <Box h="60px" bg="blue.500">
-        {/* Top Navigation Bar */}
+      <Box h="60px" bg="blue.500" display="flex" alignItems="center" px={4}>
+        {/* Logo */}
+        <Image src="/vite.svg" alt="Logo" mr={4} />
+
+        {/* Name */}
+        <Text fontSize="xl" fontWeight="bold" mr={4}>
+          Adflow
+        </Text>
+
+        {/* Buttons */}
+        <Button mr={4}>Button 1</Button>
+        <Button>Button 2</Button>
       </Box>
 
       <Flex flex="1" overflow="hidden">
