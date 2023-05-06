@@ -16,7 +16,7 @@ const initialNodes = [
 ];
 const initialEdges = [{ id: 'e1-2', source: '1', target: '2' }];
 
-export default function Workflow() {
+export default function Workflow({ log, setLogs }) {
   const reactFlowWrapper = useRef(null);
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
@@ -51,6 +51,7 @@ export default function Workflow() {
   useEffect(() => {
     console.log('Current nodes:', nodes);
     console.log('Current edges:', edges);
+    setLogs((prevLogs) => [...prevLogs, `Current nodes: ${JSON.stringify(nodes)}`]);
   }, [nodes, edges]);
 
   return (
