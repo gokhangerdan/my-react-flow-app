@@ -17,7 +17,7 @@ export default function Console({ logs }) {
   const consoleHeight = isConsoleOpen ? '300px' : '40px';
   const consoleRef = useRef(null);
   const commandsRef = useRef(null);
-  const [commandHistory, setCommandHistory] = useState([]);
+  const [commandHistory, setCommandHistory] = useState(["Hello, world!"]);
   const [commandValue, setCommandValue] = useState('');
 
   const handleCommandChange = (event) => {
