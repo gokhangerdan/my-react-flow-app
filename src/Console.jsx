@@ -8,12 +8,13 @@ import {
   TabPanel,
   TabPanels,
   Input,
+  Text
 } from '@chakra-ui/react';
 import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
 
 export default function Console({ logs }) {
   const [isConsoleOpen, setIsConsoleOpen] = useState(true);
-  const consoleHeight = isConsoleOpen ? '300px' : '50px';
+  const consoleHeight = isConsoleOpen ? '300px' : '40px';
   const consoleRef = useRef(null);
   const commandsRef = useRef(null);
   const [commandHistory, setCommandHistory] = useState([]);
@@ -55,7 +56,7 @@ export default function Console({ logs }) {
             isConsoleOpen ? (
               <>
                 <ChevronDownIcon />
-                Console
+                <Text fontSize='sm' pr={2}>Console</Text>
               </>
             ) : (
               <ChevronUpIcon />
@@ -74,8 +75,8 @@ export default function Console({ logs }) {
 
             <TabPanels>
               <TabPanel
-                bg="black"
-                color="white"
+                bg="gray.900"
+                color="gray.300"
                 fontSize="14px"
               >
                 <Box
@@ -90,12 +91,12 @@ export default function Console({ logs }) {
               </TabPanel>
 
               <TabPanel
-                bg="black"
-                color="white"
+                bg="gray.900"
+                color="gray.300"
                 fontSize="14px"
               >
                 <Box
-                  height="170px"
+                  height="150px"
                   overflowY="scroll"
                   ref={commandsRef}
                 >
@@ -107,7 +108,7 @@ export default function Console({ logs }) {
                 </Box>
                 <form
                   onSubmit={handleCommandSubmit}
-                  style={{ paddingTop: '5px' }}
+                  style={{ paddingTop: '15px' }}
                 >
                   <Input
                     size='sm'

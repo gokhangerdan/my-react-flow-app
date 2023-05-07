@@ -3,13 +3,13 @@ import {
   Box,
   IconButton,
   VStack,
-  Text,
+  Text
 } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 
 export default function NodeRepository() {
   const [isNodeRepositoryOpen, setIsNodeRepositoryOpen] = useState(true);
-  const nodeRepositoryWidth = isNodeRepositoryOpen ? "300px" : "50px";
+  const nodeRepositoryWidth = isNodeRepositoryOpen ? "300px" : "40px";
 
   const onDragStart = (event, nodeType) => {
     event.dataTransfer.setData('application/reactflow', nodeType);
@@ -30,7 +30,7 @@ export default function NodeRepository() {
               isNodeRepositoryOpen ? (
                 <>
                 <ChevronLeftIcon />
-                Node Repository
+                <Text fontSize='sm' pr={2}>Node Repository</Text>
                 </>
               ) : (
                 <ChevronRightIcon />
@@ -43,16 +43,19 @@ export default function NodeRepository() {
           />
           {/* Node Repository Content */}
           {isNodeRepositoryOpen && (
-          <VStack spacing={4} p={4}>
+          <VStack spacing={2} p={4}>
             <Text
               as="div"
               draggable
               onDragStart={(event) => onDragStart(event, 'nodeType1')}
-              bg="blue.500"
-              color="white"
+              bg="gray.800"
+              color="gray.100"
               p={2}
               borderRadius="md"
               cursor="grab"
+              w="100%"
+              fontSize="sm"
+              textAlign="center"
             >
               Node Type 1
             </Text>
@@ -60,11 +63,14 @@ export default function NodeRepository() {
               as="div"
               draggable
               onDragStart={(event) => onDragStart(event, 'nodeType2')}
-              bg="green.500"
-              color="white"
+              bg="gray.800"
+              color="gray.100"
               p={2}
               borderRadius="md"
               cursor="grab"
+              w="100%"
+              fontSize="sm"
+              textAlign="center"
             >
               Node Type 2
             </Text>

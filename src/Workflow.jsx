@@ -55,7 +55,7 @@ export default function Workflow({ log, setLogs }) {
   return (
     <div
       ref={reactFlowWrapper}
-      style={{ height: '100%', width: '100%' }}
+      style={{ height: '100%', width: '100%', border: '1px solid lightgray' }}
       onDrop={onDrop}
       onDragOver={onDragOver}
     >

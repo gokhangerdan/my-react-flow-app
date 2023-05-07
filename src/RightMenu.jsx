@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import {
     Box,
-    IconButton
+    IconButton,
+    Text
   } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 
 export default function RightMenu() {
   const [isRightMenuOpen, setIsRightMenuOpen] = useState(true);
-  const rightMenuWidth = isRightMenuOpen ? "300px" : "50px";
+  const rightMenuWidth = isRightMenuOpen ? "300px" : "40px";
 
   return (
     <>
@@ -23,7 +24,7 @@ export default function RightMenu() {
             isRightMenuOpen ? (
             <>
             <ChevronRightIcon />
-            Node Properties
+            <Text fontSize='sm' pr={2}>Node Properties</Text>
             </>
             ) : (
             <ChevronLeftIcon />
