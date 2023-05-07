@@ -1,20 +1,45 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
-    Box,
-    IconButton
-  } from "@chakra-ui/react";
-import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
+  Box,
+  IconButton,
+  Tab,
+  Tabs,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Input,
+} from '@chakra-ui/react';
+import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons';
 
 export default function Console({ logs }) {
   const [isConsoleOpen, setIsConsoleOpen] = useState(true);
-  const consoleHeight = isConsoleOpen ? "200px" : "50px";
+  const consoleHeight = isConsoleOpen ? '300px' : '50px';
   const consoleRef = useRef(null);
+  const commandsRef = useRef(null);
+  const [commandHistory, setCommandHistory] = useState([]);
+  const [commandValue, setCommandValue] = useState('');
+
+  const handleCommandChange = (event) => {
+    setCommandValue(event.target.value);
+  };
+
+  const handleCommandSubmit = (event) => {
+    event.preventDefault();
+    setCommandHistory([...commandHistory, commandValue]);
+    setCommandValue('');
+  };
 
   useEffect(() => {
     if (consoleRef.current) {
       consoleRef.current.scrollTop = consoleRef.current.scrollHeight;
     }
   }, [logs]);
+
+  useEffect(() => {
+    if (commandsRef.current) {
+      commandsRef.current.scrollTop = commandsRef.current.scrollHeight;
+    }
+  }, [commandHistory]);
 
   return (
     <>
@@ -26,13 +51,14 @@ export default function Console({ logs }) {
         transition="height 0.3s ease"
       >
         <IconButton
-          icon={isConsoleOpen ? (
-            <>
-            <ChevronDownIcon />
-            Console
-            </>
+          icon={
+            isConsoleOpen ? (
+              <>
+                <ChevronDownIcon />
+                Console
+              </>
             ) : (
-            <ChevronUpIcon />
+              <ChevronUpIcon />
             )
           }
           aria-label="Toggle Console"
@@ -40,18 +66,58 @@ export default function Console({ logs }) {
         />
         {/* Console Content */}
         {isConsoleOpen && (
-          <Box
-            bg="black"
-            color="white"
-            p={2}
-            overflowY="auto"
-            height={isConsoleOpen ? "calc(100% - 40px)" : "0"}
-            ref={consoleRef}
-          >
-            {logs.map((log, index) => (
-              <div key={index}>{log}</div>
-            ))}
-          </Box>
+          <Tabs size='sm'>
+            <TabList>
+              <Tab>Logs</Tab>
+              <Tab>Commands</Tab>
+            </TabList>
+
+            <TabPanels>
+              <TabPanel
+                bg="black"
+                color="white"
+                fontSize="14px"
+              >
+                <Box
+                  height="200px"
+                  overflowY="scroll"
+                  ref={consoleRef}
+                >
+                  {logs.map((log, index) => (
+                    <div key={index}>{"> " + log}</div>
+                  ))}
+                </Box>
+              </TabPanel>
+
+              <TabPanel
+                bg="black"
+                color="white"
+                fontSize="14px"
+              >
+                <Box
+                  height="170px"
+                  overflowY="scroll"
+                  ref={commandsRef}
+                >
+                  <Box id="commands-box">
+                    {commandHistory.map((command, index) => (
+                      <div key={index}>{"> " + command}</div>
+                    ))}
+                  </Box>
+                </Box>
+                <form
+                  onSubmit={handleCommandSubmit}
+                  style={{ paddingTop: '5px' }}
+                >
+                  <Input
+                    size='sm'
+                    value={commandValue}
+                    onChange={handleCommandChange}
+                  />
+                </form>
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
         )}
       </Box>
     </>

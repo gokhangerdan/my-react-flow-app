@@ -49,8 +49,6 @@ export default function Workflow({ log, setLogs }) {
   }, []);
 
   useEffect(() => {
-    console.log('Current nodes:', nodes);
-    console.log('Current edges:', edges);
     setLogs((prevLogs) => [...prevLogs, `Current nodes: ${JSON.stringify(nodes)}`]);
   }, [nodes, edges]);
 

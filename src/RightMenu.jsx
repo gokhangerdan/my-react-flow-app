@@ -23,7 +23,7 @@ export default function RightMenu() {
             isRightMenuOpen ? (
             <>
             <ChevronRightIcon />
-            Properties
+            Node Properties
             </>
             ) : (
             <ChevronLeftIcon />
